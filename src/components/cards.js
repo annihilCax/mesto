@@ -2,12 +2,9 @@
 //
 // создание карточки
 
-import { initialCards } from "./cards-template.js";
-
 const cardTemplate = document.querySelector("#card-template").content;
 
-
-export function createCard(name, link) {
+export function createCard(card, userID) {
   const cardElement = cardTemplate
     .querySelector(".places__item")
     .cloneNode(true);
@@ -15,21 +12,21 @@ export function createCard(name, link) {
   const cardTitle = cardElement.querySelector(".card__title");
   const cardDeleteButton = cardElement.querySelector(".card__delete-button");
   const cardLikeButton = cardElement.querySelector(".card__like-button");
+  const cardLikeAmount = cardElement.querySelector(".card__like-amount");
 
-  cardTitle.textContent = name;
+  cardTitle.textContent = card.name;
+  cardLikeAmount.textContent = card.likes.length;
+  cardElement.setAttribute("id", card._id);
+  cardImage.setAttribute("src", card.link);
+  cardImage.setAttribute("alt", card.name.toLowerCase());
 
-  cardImage.setAttribute("src", link);
-  cardImage.setAttribute("alt", name.toLowerCase());
+  if (card.owner._id !== userID) {
+    cardDeleteButton.remove();
+  }
 
-  cardLikeButton.addEventListener("click", function () {
-    cardLikeButton.classList.toggle("card__like-button_is-active");
-  });
-
-  cardDeleteButton.addEventListener("click", function (evt) {
-    evt.target.closest(".places__item").remove();
-  });
+  if (card.likes.some((item) => item._id === userID)) {
+    cardLikeButton.classList.add("card__like-button_is-active");
+  }
 
   return cardElement;
 }
-
-
