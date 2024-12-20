@@ -17,11 +17,15 @@
 
         <main class="content">
             <section class="profile page__section">
-                <div class="profile__image" style="background-image: url(<%=require('./images/avatar.jpg')%>);"></div>
+                <div class="profile__image" style="background-image: url(<%=require('./images/avatar.jpg')%>);">
+                    <div class="profile__image__overlay">
+                        <span class="profile__image__area"></span>
+                    </div>
+                </div>
                 <div class="profile__info">
-                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <h1 class="profile__title"></h1>
                     <button class="profile__edit-button" type="button"></button>
-                    <p class="profile__description">Исследователь океана</p>
+                    <p class="profile__description"</p>
                 </div>
                 <button class="profile__add-button" type="button"></button>
             </section>
@@ -33,7 +37,7 @@
 
         <footer class="footer page__section">
             <p class="footer__copyright">
-                © 2021 Mesto Russia
+                © 2024 Mesto Russia AAS
             </p>
         </footer>
 
@@ -77,6 +81,21 @@
             </div>
         </div>
 
+        <div class="popup popup_type_avatar">
+            <div class="popup__content">
+                <button type="button" class="popup__close"></button>
+                <h3 class="popup__title">Обновить аватар</h3>
+                <form class="popup__form" name="change_avatar">
+                    <label class="popup__field">
+                        <input type="url" name="avatar" class="popup__input popup__input_type_avatar" id="avatar-input"
+                            placeholder="Ссылка на изображение" required>
+                        <span class="popup__error-text avatar-input-error"></span>
+                    </label>
+                    <button type="submit" class="button popup__button">Сохранить</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 
     <template id="card-template">
@@ -86,10 +105,14 @@
             <div class="card__description">
                 <h2 class="card__title">
                 </h2>
-                <button type="button" class="card__like-button"></button>
+                <div class="card__like">
+                    <button type="button" class="card__like-button"></button>
+                    <span class="card__like-amount"></span>
+                </div>
             </div>
         </li>
     </template>
+
 </body>
 
 </html>
