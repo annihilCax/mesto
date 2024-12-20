@@ -165,7 +165,7 @@ export const editAvatar = (avatar) => {
       headers: config.headers,
     },
     body: JSON.stringify({
-      avatar: avatar;
+      avatar: avatar,
     }),
   })
     .then((res) => {
@@ -177,4 +177,15 @@ export const editAvatar = (avatar) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export {
+  getProfileInfo,
+  getInitialCards,
+  editProfile,
+  addCard,
+  deleteCard,
+  setLike,
+  deleteLike,
+  editAvatar,
 };
