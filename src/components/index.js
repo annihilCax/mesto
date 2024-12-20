@@ -8,9 +8,6 @@ import {
   getInitialCards,
   editProfile,
   addCard,
-  deleteCard,
-  setLike,
-  deleteLike,
   editAvatar,
 } from "./api.js";
 
@@ -127,6 +124,69 @@ profileCloseButton.addEventListener("click", function () {
 
 //
 //
+// карточки
+const cardPopup = document.querySelector(".popup_type_new-card");
+const cardForm = cardPopup.querySelector(".popup__form");
+
+const cardTitleInput = document.querySelector(".popup__input_type_card-name");
+const cardLinkInput = document.querySelector(".popup__input_type_url");
+const cardPlacesList = document.querySelector(".places__list");
+
+const cardAddButton = document.querySelector(".profile__add-button");
+const cardCloseButton = cardPopup.querySelector(".popup__close");
+const cardFormButton = cardPopup.querySelector(".popup__button");
+
+/*function handleCardFormSubmit(evt) {
+  evt.preventDefault();
+  cardPlacesList.prepend(createCard(cardTitleInput.value, cardLinkInput.value));
+  closeModal(cardPopup);
+}*/
+
+////////
+function handleCardFormSubmit(evt) {
+  evt.preventDefault();
+
+  const title = cardTitleInput.value;
+  const link = cardLinkInput.value;
+  cardFormButton.textContent = "Сохранение...";
+
+  addCard(title, link)
+    .then((res) => {
+      cardPlacesList.prepend(createCard(res, userID));
+    })
+    .catch((err) => console.log(`Ошибка: ${err}`))
+    .finally(() => {
+      closeModal(cardPopup);
+      cardFormButton.textContent = "Сохранить";
+    });
+
+  closeModal(cardPopup);
+}
+////////
+
+cardAddButton.addEventListener("click", function () {
+  cardTitleInput.value = "";
+  cardLinkInput.value = "";
+  openModal(cardPopup);
+});
+
+cardCloseButton.addEventListener("click", function () {
+  closeModal(cardPopup);
+});
+
+cardForm.addEventListener("submit", handleCardFormSubmit);
+
+cardPlacesList.addEventListener("click", function (evt) {
+  if (evt.target.classList.contains("card__image")) {
+    imageImage.setAttribute("src", "");
+    imageImage.setAttribute("src", evt.target.src);
+    imageCaption.textContent = evt.target.alt;
+    openModal(imagePopup);
+  }
+});
+
+//
+//
 // поп-ап - редактирование аватара
 
 const avatarPopup = document.querySelector(".popup_type_avatar");
@@ -136,7 +196,6 @@ const avatarUrlInput = avatarPopup.querySelector(".popup__input_type_avatar");
 
 const avatarFormButton = avatarPopup.querySelector(".popup__button");
 const avatarCloseButton = avatarPopup.querySelector(".popup__close");
-
 
 ////////
 function handleAvatarFormSubmit(evt) {
@@ -167,49 +226,4 @@ profileImage.addEventListener("click", function () {
 
 avatarCloseButton.addEventListener("click", function () {
   closeModal(avatarPopup);
-});
-
-//
-//
-// карточки
-const cardPopup = document.querySelector(".popup_type_new-card");
-const cardForm = cardPopup.querySelector(".popup__form");
-
-const cardTitleInput = document.querySelector(".popup__input_type_card-name");
-const cardLinkInput = document.querySelector(".popup__input_type_url");
-const cardPlacesList = document.querySelector(".places__list");
-
-const cardAddButton = document.querySelector(".profile__add-button");
-const cardCloseButton = cardPopup.querySelector(".popup__close");
-const cardFormButton = cardPopup.querySelector(".popup__button");
-
-function handleCardFormSubmit(evt) {
-  evt.preventDefault();
-  cardPlacesList.prepend(createCard(cardTitleInput.value, cardLinkInput.value));
-  closeModal(cardPopup);
-}
-
-cardAddButton.addEventListener("click", function () {
-  cardTitleInput.value = "";
-  cardLinkInput.value = "";
-  openModal(cardPopup);
-});
-
-cardCloseButton.addEventListener("click", function () {
-  closeModal(cardPopup);
-});
-
-cardForm.addEventListener("submit", handleCardFormSubmit);
-
-initialCards.forEach((item) =>
-  cardPlacesList.append(createCard(item.name, item.link))
-);
-
-cardPlacesList.addEventListener("click", function (evt) {
-  if (evt.target.classList.contains("card__image")) {
-    imageImage.setAttribute("src", "");
-    imageImage.setAttribute("src", evt.target.src);
-    imageCaption.textContent = evt.target.alt;
-    openModal(imagePopup);
-  }
 });
