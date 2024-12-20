@@ -11,47 +11,7 @@ import {
   editAvatar,
 } from "./api.js";
 
-////////////////// ЗАГРУЗКА
 
-//
-//
-// анимации
-
-let userID;
-
-getProfileInfo()
-  .then((res) => {
-    profile.textContent = res.name;
-    jobprofile.textContent = res.about;
-    avaprofile.style.backgroundImage = `url(${res.avatar})`;
-    userID = res._id;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-getInitialCards()
-  .then((res) => {
-    cards.forEach((item) => cardsList.append(createCard(item, userID)));
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-profilePopup.classList.add("popup_is-animated");
-cardPopup.classList.add("popup_is-animated");
-imagePopup.classList.add("popup_is-animated");
-
-const validationSettings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_type_inactive",
-  inputErrorClass: "popup__input_error",
-  errorClass: "popup__error_visible",
-};
-
-enableValidation(validationSettings);
 
 ////////////////// ПОП-АПЫ
 
@@ -227,3 +187,45 @@ profileImage.addEventListener("click", function () {
 avatarCloseButton.addEventListener("click", function () {
   closeModal(avatarPopup);
 });
+
+////////////////// ЗАГРУЗКА
+
+//
+//
+// анимации
+
+let userID;
+
+getProfileInfo()
+  .then((res) => {
+    profile.textContent = res.name;
+    jobprofile.textContent = res.about;
+    avaprofile.style.backgroundImage = `url(${res.avatar})`;
+    userID = res._id;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+getInitialCards()
+  .then((res) => {
+    cards.forEach((item) => cardsList.append(createCard(item, userID)));
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+profilePopup.classList.add("popup_is-animated");
+cardPopup.classList.add("popup_is-animated");
+imagePopup.classList.add("popup_is-animated");
+
+const validationSettings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_type_inactive",
+  inputErrorClass: "popup__input_error",
+  errorClass: "popup__error_visible",
+};
+
+enableValidation(validationSettings);

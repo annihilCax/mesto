@@ -179,13 +179,4 @@ export const editAvatar = (avatar) => {
     });
 };
 
-export {
-  getProfileInfo,
-  getInitialCards,
-  editProfile,
-  addCard,
-  deleteCard,
-  setLike,
-  deleteLike,
-  editAvatar,
-};
+
